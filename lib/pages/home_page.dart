@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                  );
                },
              ),
-             position: const BadgePosition(start: 30, bottom: 22),
+             position: const BadgePosition(start: 22, bottom: 20),
              child: Icon(count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart,color: Colors.black54,),
            )
           ),
@@ -223,7 +223,7 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(
                             color: Colors.black45,
                             fontSize: 15,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.normal,
                           ),
                         ),
                       ),
@@ -284,7 +284,7 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(
                             color: Colors.black45,
                             fontSize: 15,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.normal,
                           ),
                         ),
                       ),

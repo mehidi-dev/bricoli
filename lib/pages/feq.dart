@@ -48,18 +48,19 @@ class _FeqPageState extends State<FeqPage> {
                   children:  [
                       SizedBox(
             height: 65,
-            child: ElevatedButton(
+            child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   elevation: 5,
                   backgroundColor: AppColor.primaryBlueColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10)),
+                  padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10)),
               onPressed: () {
                 launch('mailto:bricolidari@gmail.com?subject=News&body=New%20plugin');
               },
-              child: const Center(
+              icon: const Icon(Icons.mail),
+              label: const Center(
                 child: Text(
                   "bricolidari@gmail.com",
                   style: TextStyle(color: Colors.white,fontSize: 18),
@@ -72,23 +73,26 @@ class _FeqPageState extends State<FeqPage> {
                     ),
                     SizedBox(
               height: 65,
-                child: ElevatedButton(
+                child: ElevatedButton.icon(
+
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   elevation: 5,
                   backgroundColor: AppColor.primaryBlueColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10)),
+                  padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10)),
               onPressed: () {
                 launch('tel:0555588208');
               },
-              child: const Center(
+                  icon: const Icon(Icons.phone),
+              label: const Center(
                 child: Text(
                   "0555588208",
                   style: TextStyle(color: Colors.white,fontSize: 18),
                 ),
               ),
+
             ),
           ),
                     const SizedBox(

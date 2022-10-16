@@ -92,7 +92,7 @@ class _ServiceListState extends State<ServiceList> {
                 );
               },
             ),
-            position: const BadgePosition(start: 30, bottom: 30),
+            position:  const BadgePosition(start: 22, bottom: 20),
             child: IconButton(
               onPressed: () {
                 if(_count != 0 ){
@@ -119,7 +119,7 @@ class _ServiceListState extends State<ServiceList> {
                 itemCount: services.length,
                 itemBuilder: (BuildContext context, int index) {
                   return AnimationConfiguration.staggeredGrid(
-                      columnCount: 12,
+                      columnCount: services.length,
                       position: index,
                       duration: const Duration(milliseconds: 1000),
                       child: ScaleAnimation(
@@ -155,7 +155,7 @@ Widget listItem(Service service) {
         Positioned(
           bottom: 0,
           child: Container(
-            width: 230.0,
+            width: 136.0,
             height: 70.0,
             decoration:  BoxDecoration(
               color: AppColor.primaryBlueColor,

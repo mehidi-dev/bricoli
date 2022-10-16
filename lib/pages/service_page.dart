@@ -143,7 +143,7 @@ class _CartScreenState extends State<CartScreen> {
                 );
               },
             ),
-            position: const BadgePosition(start: 30, bottom: 30),
+            position:  const BadgePosition(start: 22, bottom: 20),
             child: IconButton(
               onPressed: () {},
               icon: Icon(count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart),
