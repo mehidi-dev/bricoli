@@ -143,7 +143,7 @@ Widget listItem(Service service) {
     child: Stack(
       children: [
         Container(
-          width: 230.0,
+          width:230,
           height: 200.0,
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -155,7 +155,7 @@ Widget listItem(Service service) {
         Positioned(
           bottom: 0,
           child: Container(
-            width: 136.0,
+            width: 230,
             height: 70.0,
             decoration:  BoxDecoration(
               color: AppColor.primaryBlueColor,

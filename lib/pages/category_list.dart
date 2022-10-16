@@ -94,7 +94,7 @@ Widget listItem(Category category) {
         Positioned(
           bottom: 0,
           child: Container(
-            width: 136.0,
+            width:230,
             height: 60.0,
             decoration:  BoxDecoration(
               color: AppColor.primaryBlueColor,
