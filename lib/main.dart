@@ -1,5 +1,6 @@
 import 'package:bricoli_app/pages/category_list.dart';
 import 'package:bricoli_app/pages/detail_page.dart';
+import 'package:bricoli_app/pages/feq.dart';
 import 'package:bricoli_app/pages/home_page.dart';
 import 'package:bricoli_app/pages/product_list.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
           CartScreen.route: (context) => const CartScreen(),
           ServiceList.route: (context) => const ServiceList(category: null),
           CategoryList.route: (context) => const CategoryList(),
+          FeqPage.route: (context) => const FeqPage(),
         },
         theme: ThemeData(
           primarySwatch: Colors.blue,

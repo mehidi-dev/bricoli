@@ -208,11 +208,11 @@ class _CartScreenState extends State<CartScreen> {
                                           Text(
                                             "${cartService[index].name}",
                                             overflow:TextOverflow.ellipsis ,
-                                            style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.primaryLightColor),
+                                            style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.backgroundColor),
                                           ),
                                           Text(
                                             "${cartService[index].price} Da/h",
-                                            style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.primaryLightColor),
+                                            style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.backgroundColor),
                                           ),
                                            Padding(
                                             padding: const EdgeInsets.only(top: 8.0),

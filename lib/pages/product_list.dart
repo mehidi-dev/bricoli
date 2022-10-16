@@ -73,7 +73,7 @@ class _ServiceListState extends State<ServiceList> {
       }).onError((error, stackTrace) {
         ToastService.showErrorToast('Le service est deja ajouté');
       });
-    }t
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -169,11 +169,11 @@ Widget listItem(Service service) {
                   Text(
                     service.name,
                     overflow:TextOverflow.ellipsis ,
-                    style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.primaryLightColor),
+                    style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.backgroundColor),
                   ),
                   Text(
                     "${service.price} Da/h",
-                    style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.primaryLightColor),
+                    style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.backgroundColor),
                   ),
                 ],
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../utils/color.dart';
 import 'home_page.dart';
@@ -28,10 +29,11 @@ class _StartedPageState extends State<StartedPage> {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
                 ),
-                child: Image.asset(
-                  "assets/start.jpeg",
-                  // height: 50,
-                ),
+                child: SvgPicture.asset('assets/start-optimized.svg',
+                  allowDrawingOutsideViewBox: true,
+                  width: 180.0,
+                  height: 180.0,
+                )
               ),
               const SizedBox(
                 height: 16,

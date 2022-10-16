@@ -47,11 +47,11 @@ class ServiceItem extends StatelessWidget {
                   Text(
                     "$name",
                     overflow:TextOverflow.ellipsis ,
-                    style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.primaryLightColor),
+                    style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.backgroundColor),
                   ),
                   Text(
                     "$prix Da/h",
-                    style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.primaryLightColor),
+                    style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.backgroundColor),
                   ),
                 ],
               ),

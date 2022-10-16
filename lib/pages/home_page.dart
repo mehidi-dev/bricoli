@@ -4,6 +4,7 @@ import 'package:bricoli_app/pages/product_list.dart';
 import 'package:bricoli_app/pages/service_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../models/DBHelper.dart';
@@ -16,6 +17,7 @@ import '../utils/toast.dart';
 import '../widgets/search_form.dart';
 import '../widgets/service_item.dart';
 import '../widgets/specialist_item.dart';
+import 'feq.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   int _current = 0;
   int count = 0;
+  int _currentIndex = 0;
   List<Category?> categories = [];
   List<Service?> services = [];
    bool isData = false;
@@ -44,6 +47,13 @@ class _HomePageState extends State<HomePage> {
       isData = true;
     });
   }
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   void saveData(int index) {
     final cart = Provider.of<CartProvider>(context,listen: false);
     print(index);
@@ -78,92 +88,56 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(''),
-        backgroundColor: AppColor.primaryBlueColor,
-        actions: [
-          Badge(
-            badgeContent: Consumer<CartProvider>(
-              builder: (context, value, child) {
-                count = value.getCounter();
-                return Text(
-                  value.getCounter().toString(),
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                );
-              },
-            ),
-            position: const BadgePosition(start: 30, bottom: 30),
-            child: IconButton(
-              onPressed: () {
-                if(count != 0 ){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CartScreen()));
-                }
-              },
-              icon:  Icon(count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart),
-            ),
-          ),
-          const SizedBox(
-            width: 20.0,
-          ),
-        ],
-      ),
       backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Theme.of(context).primaryColor,
+        unselectedItemColor: Theme.of(context).secondaryHeaderColor,
         type: BottomNavigationBarType.fixed,
         iconSize: 30,
-        items: const [
-          BottomNavigationBarItem(
+        currentIndex: _currentIndex,
+        onTap: onTabTapped,
+        items:  [
+          const BottomNavigationBarItem(
+
             icon: Icon(
-              Icons.home_outlined,
+              Icons.home,
               color: Colors.black54,
             ),
-            label: '',
+            label: 'ACCUEIL',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.calendar_month_outlined,
-              color: Colors.black54,
-            ),
-            label: '',
+           BottomNavigationBarItem(
+            label: 'PANIER',
+           icon: Badge(
+             badgeContent: Consumer<CartProvider>(
+               builder: (context, value, child) {
+                 count = value.getCounter();
+                 return Text(
+                   value.getCounter().toString(),
+                   style: const TextStyle(
+                       color: Colors.white, fontWeight: FontWeight.bold),
+                 );
+               },
+             ),
+             position: const BadgePosition(start: 30, bottom: 22),
+             child: Icon(count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart,color: Colors.black54,),
+           )
           ),
-          BottomNavigationBarItem(
+           const BottomNavigationBarItem(
             icon: Icon(
-              Icons.settings,
+              Icons.help_outlined,
               color: Colors.black54,
             ),
-            label: '',
+            label: 'AIDE',
           ),
         ],
       ),
-      body: SafeArea(
+      body: _currentIndex == 0 ?  SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 const SizedBox(height: 12),
-                  Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:  [
-                     Container(
-                      height: size.height / 7,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                      ),
-                      child: Image.asset(
-                        "assets/start.jpeg",
-                        // height: 50,
-                      ),
-                    ),
-
-                  ],
-                ),
-
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: defaultPadding),
                   child: SearchForm(),
@@ -187,14 +161,14 @@ class _HomePageState extends State<HomePage> {
                             builder: (BuildContext context) {
                               return InkWell(
                                 onTap: (){
-                                 // Navigator.push(context,MaterialPageRoute(builder: (context) =>  const DetailScreen(service: null,)),);
+                                  // Navigator.push(context,MaterialPageRoute(builder: (context) =>  const DetailScreen(service: null,)),);
                                 },
                                 child: Container(
                                   width: double.infinity,
                                   height: 200.0,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                        image: AssetImage('assets/slide$i.jpeg'),fit: BoxFit.fill,),
+                                      image: AssetImage('assets/slide$i.jpeg'),fit: BoxFit.fill,),
                                     color: Colors.blue,
                                     borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                                   ),
@@ -298,7 +272,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 20,
                       ),
                     ),
-                     SizedBox(
+                    SizedBox(
                       height: 20,
                       child: InkWell(
                         onTap: (){
@@ -349,7 +323,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-      ),
+      ) : _currentIndex == 1 ? const CartScreen() : const FeqPage(),
     );
   }
 }

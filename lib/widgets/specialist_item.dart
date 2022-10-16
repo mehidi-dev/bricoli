@@ -35,7 +35,7 @@ class _SpecialistItemState extends State<SpecialistItem> {
   Widget build(BuildContext context) {
     return Container(
       width: 170,
-      padding: const EdgeInsets.all(6.0),
+      padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color:  hexaColor("${widget.color}"),
         borderRadius: BorderRadius.circular(15.0),

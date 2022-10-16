@@ -40,7 +40,7 @@ class SearchForm extends StatelessWidget {
               height: 48,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: primaryColor,
+                  primary: AppColor.primaryBlueColor,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                   ),

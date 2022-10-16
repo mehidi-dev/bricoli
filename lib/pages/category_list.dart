@@ -108,7 +108,7 @@ Widget listItem(Category category) {
                   Text(
                     category.name,
                     overflow:TextOverflow.ellipsis ,
-                    style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.primaryLightColor),
+                    style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.backgroundColor),
                   ),
                 ],
               ),
