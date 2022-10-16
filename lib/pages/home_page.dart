@@ -90,8 +90,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Theme.of(context).secondaryHeaderColor,
+        selectedItemColor: AppColor.primaryBlueColor,
+        unselectedItemColor: AppColor.primaryDarkColor,
         type: BottomNavigationBarType.fixed,
         iconSize: 30,
         currentIndex: _currentIndex,
@@ -223,7 +223,7 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(
                             color: Colors.black45,
                             fontSize: 15,
-                            fontWeight: FontWeight.normal,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
@@ -284,7 +284,7 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(
                             color: Colors.black45,
                             fontSize: 15,
-                            fontWeight: FontWeight.normal,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),

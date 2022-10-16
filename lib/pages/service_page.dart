@@ -507,65 +507,71 @@ class _CartScreenState extends State<CartScreen> {
           },
         ),
       ),
-      bottomNavigationBar: Consumer<CartProvider>(
-        builder: (BuildContext context, provider, widget) {
-          if (provider.cart.isEmpty) {
-            return  Container(child: const Text(""),);
-          } else {
-            return  InkWell(
-              onTap: () {
-                List<Map<String, dynamic>> services = [];
-                bool isDone = false;
-                if (_formkey.currentState!.validate() && showDate && showTime) {
-                  for (var element in cartService) {
-                    for (var ele in services) {
-                      if(ele['service'] == element.name ){
-                        isDone = true;
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24,vertical: 12),
+        child: Consumer<CartProvider>(
+          builder: (BuildContext context, provider, widget) {
+            if (provider.cart.isEmpty) {
+              return  Container(child: const Text(""),);
+            } else {
+              return  InkWell(
+                onTap: () {
+                  List<Map<String, dynamic>> services = [];
+                  bool isDone = false;
+                  if (_formkey.currentState!.validate() && showDate && showTime) {
+                    for (var element in cartService) {
+                      for (var ele in services) {
+                        if(ele['service'] == element.name ){
+                          isDone = true;
+                        }
+                      }
+                      if(!isDone){
+                        services.add(
+                            {
+                              "service":element.name,
+                              "hours":element.numberHours.toInt(),
+                            }
+                        );
                       }
                     }
-                    if(!isDone){
-                      services.add(
-                          {
-                            "service":element.name,
-                            "hours":element.numberHours.toInt(),
-                          }
-                      );
-                    }
-                  }
 
-                  Map<String, dynamic> data = {
-                    "client":name,
-                    "date":getDate()!,
-                    "start":getTime(selectedTime),
-                    "service":services,
-                    "address":adress,
-                    "phone1":completeNumber,
-                    "phone2":completeNumber1,
-                    "state":state
-                  };
-                  Order.postOrder(data,context);
-                  dbHelper!.deleteCart();
-                  cart.initCounter();
-                } else {
-                  ToastService.showErrorToast("Vérifier les champs");
-                }
-              },
-              child: Container(
-                color: AppColor.primaryBlueColor,
-                alignment: Alignment.center,
-                height: 50.0,
-                child: const Text(
-                  r"Commander",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
+                    Map<String, dynamic> data = {
+                      "client":name,
+                      "date":getDate()!,
+                      "start":getTime(selectedTime),
+                      "service":services,
+                      "address":adress,
+                      "phone1":completeNumber,
+                      "phone2":completeNumber1,
+                      "state":state
+                    };
+                    Order.postOrder(data,context);
+                    dbHelper!.deleteCart();
+                    cart.initCounter();
+                  } else {
+                    ToastService.showErrorToast("Vérifier les champs");
+                  }
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                    color: AppColor.primaryBlueColor,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Text(
+                    r"Commander",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-            );
-          }
-        },
+              );
+            }
+          },
+        ),
       ),
     );
   }
