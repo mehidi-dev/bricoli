@@ -58,7 +58,6 @@ class _ServiceListState extends State<ServiceList> {
       dbHelper
           .insert(
         Cart(
-          id: index,
           serviceId: services[index]?.id,
           name: services[index]?.name,
           status: services[index]?.status,
@@ -143,8 +142,8 @@ Widget listItem(Service service) {
     child: Stack(
       children: [
         Container(
-          width:230,
-          height: 200.0,
+          width:136,
+          height: 100.0,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(service.img,),fit: BoxFit.fill,),
@@ -155,7 +154,7 @@ Widget listItem(Service service) {
         Positioned(
           bottom: 0,
           child: Container(
-            width: 230,
+            width:136,
             height: 70.0,
             decoration:  BoxDecoration(
               color: AppColor.primaryBlueColor,
@@ -168,7 +167,7 @@ Widget listItem(Service service) {
                 children: [
                   Text(
                     service.name,
-                    overflow:TextOverflow.ellipsis ,
+                   maxLines: 2,
                     style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.backgroundColor),
                   ),
                   Text(

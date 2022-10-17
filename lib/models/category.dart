@@ -20,7 +20,8 @@ class Category {
     required this.img,
     required this.colortext,
     required this.createdAt,
-    required this.updatedAt
+    required this.updatedAt,
+    required this.services
   });
 
   String id;
@@ -31,6 +32,7 @@ class Category {
   String colortext;
   String createdAt;
   String updatedAt;
+  List<Service?> services;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
     id: json["_id"],
@@ -39,8 +41,9 @@ class Category {
       color: json["color"],
       img: json["img"],
       colortext: json["colortext"],
-    createdAt: json["createdAt"].toString(),
-    updatedAt: json["updatedAt"].toString()
+     createdAt: json["createdAt"].toString(),
+     updatedAt: json["updatedAt"].toString(),
+      services: json["services"] ?? [],
   );
 
   Map<String, dynamic> toJson() => {
@@ -51,7 +54,8 @@ class Category {
     "status": status,
     "colortext": colortext,
     "createdAt": createdAt,
-    "updatedAt": updatedAt
+    "updatedAt": updatedAt,
+    "services": services
   };
   static Future<List<Category>?> getCategory() async {
 

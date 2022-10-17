@@ -25,6 +25,7 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   final _formkey = GlobalKey<FormState>();
+  bool isSelected = true;
   int count = 0;
   int totalPrice = 0;
    OutlineInputBorder outlineInputBorder = const OutlineInputBorder(
@@ -92,6 +93,7 @@ class _CartScreenState extends State<CartScreen> {
     final format =  DateFormat('HH:mm').format(dt);
     return format;
   }
+
   getState() async{
     willayasActive = [];
     willayas = (await Willaya.getState())!;
@@ -243,9 +245,9 @@ class _CartScreenState extends State<CartScreen> {
                                   child: IconButton(
                                       onPressed: () {
                                         dbHelper!.deleteCartItem(
-                                            provider.cart[index].id!);
+                                            provider.cart[index].serviceId!);
                                         provider
-                                            .removeItem(provider.cart[index].id!);
+                                            .removeItem(provider.cart[index].serviceId!);
                                         provider.removeCounter();
                                         getCartProvider();
                                       },
@@ -516,6 +518,9 @@ class _CartScreenState extends State<CartScreen> {
             } else {
               return  InkWell(
                 onTap: () {
+                  setState(() {
+                    isSelected = false;
+                  });
                   List<Map<String, dynamic>> services = [];
                   bool isDone = false;
                   if (_formkey.currentState!.validate() && showDate && showTime) {
@@ -548,8 +553,12 @@ class _CartScreenState extends State<CartScreen> {
                     Order.postOrder(data,context);
                     dbHelper!.deleteCart();
                     cart.initCounter();
+                    setState(() {
+                      isSelected = true;
+                    });
                   } else {
                     ToastService.showErrorToast("Vérifier les champs");
+
                   }
                 },
                 child: Container(
@@ -559,13 +568,16 @@ class _CartScreenState extends State<CartScreen> {
                     color: AppColor.primaryBlueColor,
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: const Text(
+                  child: isSelected == true ? const Text(
                     r"Commander",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
                     ),
+                  ): const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: CircularProgressIndicator(backgroundColor: Colors.white),
                   ),
                 ),
               );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Cart {
-  late final int? id;
   final String? serviceId;
   double numberHours;
   final String? name;
@@ -11,7 +10,7 @@ class Cart {
   final String? img;
 
   Cart(
-      {required this.id,
+      {
         required this.serviceId,
         required this.numberHours,
         required this.name,
@@ -22,7 +21,7 @@ class Cart {
         });
 
   Cart.fromMap(Map<dynamic, dynamic> data)
-      : id = data['id'],
+      :
         serviceId = data['serviceId'],
         numberHours = data['numberHours'].toDouble(),
         name = data['name'],
@@ -33,7 +32,6 @@ class Cart {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'serviceId': serviceId,
       'numberHours': numberHours,
       'name': name,

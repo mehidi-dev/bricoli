@@ -58,8 +58,8 @@ class CartProvider with ChangeNotifier {
 
 
 
-  void removeItem(int id) {
-    final index = cart.indexWhere((element) => element.id == id);
+  void removeItem(String id) {
+    final index = cart.indexWhere((element) => element.serviceId == id);
     cart.removeAt(index);
     _setPrefsItems();
     notifyListeners();

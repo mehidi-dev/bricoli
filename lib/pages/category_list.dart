@@ -75,6 +75,7 @@ class _CategoryListState extends State<CategoryList> {
     );
   }
 }
+//width: MediaQuery.of(context).size.width,
 
 Widget listItem(Category category) {
   return Padding(
@@ -82,8 +83,8 @@ Widget listItem(Category category) {
     child: Stack(
       children: [
         Container(
-          width: 230.0,
-          height: 200.0,
+          width:136,
+          height: 100.0,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(category.img,),fit: BoxFit.fill,),
@@ -94,8 +95,8 @@ Widget listItem(Category category) {
         Positioned(
           bottom: 0,
           child: Container(
-            width:230,
-            height: 60.0,
+            width:136,
+            height: 70.0,
             decoration:  BoxDecoration(
               color: AppColor.primaryBlueColor,
               borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(10.0),bottomRight: Radius.circular(10.0)),
@@ -107,7 +108,7 @@ Widget listItem(Category category) {
                 children: [
                   Text(
                     category.name,
-                    overflow:TextOverflow.ellipsis ,
+                    maxLines: 2,
                     style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.backgroundColor),
                   ),
                 ],

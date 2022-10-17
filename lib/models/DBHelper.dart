@@ -26,7 +26,7 @@ class DBHelper {
 
   _onCreate(Database db, int version) async {
     await db.execute(
-        'CREATE TABLE cart(id INTEGER PRIMARY KEY, serviceId VARCHAR UNIQUE, name TEXT, price VARCHAR, category VARCHAR, numberHours INTEGER, status TEXT, img TEXT)');
+        'CREATE TABLE cart(id INTEGER PRIMARY KEY AUTOINCREMENT, serviceId VARCHAR UNIQUE, name TEXT, price VARCHAR, category VARCHAR, numberHours INTEGER, status TEXT, img TEXT)');
   }
 
   Future<Cart> insert(Cart cart) async {
@@ -43,9 +43,9 @@ class DBHelper {
     return queryResult.map((result) => Cart.fromMap(result)).toList();
   }
 
-  Future<int> deleteCartItem(int id) async {
+  Future<int> deleteCartItem(String id) async {
     var dbClient = await database;
-    return await dbClient!.delete('cart', where: 'id = ?', whereArgs: [id]);
+    return await dbClient!.delete('cart', where: 'serviceId = ?', whereArgs: [id]);
   }
   Future<int> deleteCart() async {
     var dbClient = await database;
@@ -57,7 +57,7 @@ class DBHelper {
   Future<List<Cart>> getCartId(int id) async {
     var dbClient = await database;
     final List<Map<String, Object?>> queryIdResult =
-    await dbClient!.query('cart', where: 'id = ?', whereArgs: [id]);
+    await dbClient!.query('cart', where: 'serviceId = ?', whereArgs: [id]);
     return queryIdResult.map((e) => Cart.fromMap(e)).toList();
   }
 }

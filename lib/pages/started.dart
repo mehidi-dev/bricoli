@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../utils/color.dart';
 import 'home_page.dart';
@@ -12,6 +11,8 @@ class StartedPage extends StatefulWidget {
 }
 
 class _StartedPageState extends State<StartedPage> {
+    bool isSelected = true;
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -68,24 +69,36 @@ class _StartedPageState extends State<StartedPage> {
                       height: 32,
                     ),
                     InkWell(
-                      onTap: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const HomePage();
-                      })),
+                      onTap: (){
+                        setState(() {
+                          isSelected = false;
+                        });
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                              return const HomePage();
+                            })).then((value) {
+                          setState(() {
+                            isSelected = true;
+                          });
+                        });
+                      },
                       child: Container(
                         height: 56,
                         decoration: BoxDecoration(
                           color: AppColor.primaryBlueColor,
                           borderRadius: BorderRadius.circular(16),
                         ),
-                        child: const Center(
-                          child: Text(
+                        child:  Center(
+                          child: isSelected == true ? const Text(
                             "Commencer",
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
                             ),
+                          ) :  const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: CircularProgressIndicator(backgroundColor: Colors.white),
                           ),
                         ),
                       ),

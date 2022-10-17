@@ -3,6 +3,7 @@ import 'package:bricoli_app/pages/detail_page.dart';
 import 'package:bricoli_app/pages/feq.dart';
 import 'package:bricoli_app/pages/home_page.dart';
 import 'package:bricoli_app/pages/product_list.dart';
+import 'package:bricoli_app/pages/service_category_list.dart';
 import 'package:flutter/material.dart';
 import 'package:bricoli_app/pages/started.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           ServiceList.route: (context) => const ServiceList(category: null),
           CategoryList.route: (context) => const CategoryList(),
           FeqPage.route: (context) => const FeqPage(),
+          ServiceCategoryList.route: (context) => const ServiceCategoryList(),
         },
         theme: ThemeData(
           primarySwatch: Colors.blue,

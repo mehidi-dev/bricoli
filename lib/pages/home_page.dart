@@ -1,10 +1,9 @@
 import 'package:badges/badges.dart';
-import 'package:bricoli_app/pages/category_list.dart';
 import 'package:bricoli_app/pages/product_list.dart';
+import 'package:bricoli_app/pages/service_category_list.dart';
 import 'package:bricoli_app/pages/service_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../models/DBHelper.dart';
@@ -61,7 +60,6 @@ class _HomePageState extends State<HomePage> {
     dbHelper
         .insert(
       Cart(
-          id: index,
           serviceId: services[index]?.id,
           name: services[index]?.name,
           status: services[index]?.status,
@@ -93,8 +91,11 @@ class _HomePageState extends State<HomePage> {
         selectedItemColor: AppColor.primaryBlueColor,
         unselectedItemColor: AppColor.primaryDarkColor,
         type: BottomNavigationBarType.fixed,
-        iconSize: 30,
+        iconSize: 32,
         currentIndex: _currentIndex,
+        unselectedFontSize: 12,
+        selectedFontSize: 12,
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
         onTap: onTabTapped,
         items:  [
           const BottomNavigationBarItem(
@@ -137,12 +138,8 @@ class _HomePageState extends State<HomePage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 12),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: defaultPadding),
-                  child: SearchForm(),
-                ),
                 const SizedBox(height: 20),
+
                 Column(
                   children: [
                     CarouselSlider(
@@ -215,8 +212,8 @@ class _HomePageState extends State<HomePage> {
                       height: 20,
                       child: InkWell(
                         onTap: (){
-                          Navigator.push(
-                            context,MaterialPageRoute(builder: (context) =>  const CategoryList()),);
+                          //Navigator.push(context,MaterialPageRoute(builder: (context) =>  const CategoryList()),);
+                          Navigator.push(context,MaterialPageRoute(builder: (context) =>  const ServiceCategoryList()),);
                         },
                         child: const Text(
                           "Voir tout",
