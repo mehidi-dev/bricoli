@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
           status: services[index]?.status,
           category: services[index]?.category,
           price: services[index]?.price,
-          numberHours: 0,
+          numberHours: 1,
          img: services[index]?.img,
       ),
     ).then((value) {

@@ -1,9 +1,11 @@
 import 'package:badges/badges.dart';
 import 'package:bricoli_app/utils/toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:slider_button/slider_button.dart';
 
 import '../models/DBHelper.dart';
 import '../models/cart_model.dart';
@@ -27,7 +29,7 @@ class _CartScreenState extends State<CartScreen> {
   final _formkey = GlobalKey<FormState>();
   bool isSelected = true;
   int count = 0;
-  int totalPrice = 0;
+  double totalPrice = 0;
    OutlineInputBorder outlineInputBorder = const OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(12)),
     borderSide: BorderSide.none,
@@ -113,7 +115,12 @@ class _CartScreenState extends State<CartScreen> {
    calculePrice(){
      totalPrice = 0;
      for (var element in cartService) {
-    totalPrice = totalPrice + int.parse("${element.price}") * element.numberHours.toInt();
+       if(element.numberHours.toInt() == 1 ) {
+         totalPrice = totalPrice + int.parse("${element.price}") * (1.5);
+       }else{
+         totalPrice = totalPrice + int.parse("${element.price}") * element.numberHours.toInt();
+       }
+
      }
      setState(() {
        totalPrice;
@@ -218,13 +225,14 @@ class _CartScreenState extends State<CartScreen> {
                                           ),
                                            Padding(
                                             padding: const EdgeInsets.only(top: 8.0),
-                                            child: Text("Nombre de heures: ${cartService[index].numberHours.round().toString()}H",style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
+                                            child: Text(cartService[index].numberHours == 1 ? "Nombre de heures: 1.5h" : "Nombre de heures: ${cartService[index].numberHours.round().toString()}H",style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
                                           ),
                                           Slider(
+                                            min: 1,
                                             value: cartService[index].numberHours,
                                             max: 8,
-                                            divisions: 8,
-                                            label: "${cartService[index].numberHours.round().toString()}h",
+                                            divisions: 7,
+                                            label: cartService[index].numberHours == 1 ? "1.5h" :"${cartService[index].numberHours.round().toString()}h",
                                             onChanged: (double value) {
                                               setState(() {
                                                 cartService[index].numberHours = value;
@@ -274,7 +282,13 @@ class _CartScreenState extends State<CartScreen> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0,bottom: 8),
-                              child: Text("Total prix: $totalPrice DA",style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 32)),
+                              child: Container( width: 400,
+                                  padding: const EdgeInsets.all(16.0),
+                                 decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage('assets/to_pay.png'), fit: BoxFit.fill),
+                                  ),
+                                  child: Text("Total prix: ${totalPrice.toInt()} DA",style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 22))),
                             ),
                             const Text(
                               "Nom:",
@@ -518,48 +532,253 @@ class _CartScreenState extends State<CartScreen> {
             } else {
               return  InkWell(
                 onTap: () {
-                  setState(() {
-                    isSelected = false;
-                  });
-                  List<Map<String, dynamic>> services = [];
-                  bool isDone = false;
-                  if (_formkey.currentState!.validate() && showDate && showTime) {
-                    for (var element in cartService) {
-                      for (var ele in services) {
-                        if(ele['service'] == element.name ){
-                          isDone = true;
-                        }
-                      }
-                      if(!isDone){
-                        services.add(
-                            {
-                              "service":element.name,
-                              "hours":element.numberHours.toInt(),
-                            }
-                        );
-                      }
-                    }
-
-                    Map<String, dynamic> data = {
-                      "client":name,
-                      "date":getDate()!,
-                      "start":getTime(selectedTime),
-                      "service":services,
-                      "address":adress,
-                      "phone1":completeNumber,
-                      "phone2":completeNumber1,
-                      "state":state
-                    };
-                    Order.postOrder(data,context);
-                    dbHelper!.deleteCart();
-                    cart.initCounter();
-                    setState(() {
-                      isSelected = true;
+                   setState(() {
+                        isSelected = false;
                     });
-                  } else {
-                    ToastService.showErrorToast("Vérifier les champs");
+                  if (_formkey.currentState!.validate() && showDate && showTime) {
+                  showDialog(context: context, barrierDismissible: false, builder: (BuildContext context) {
+                    return AlertDialog(
+                      insetPadding: const EdgeInsets.symmetric(vertical: 20,horizontal: 10),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 20,horizontal: 20),
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),),
+                      title: const Center(child:  Text(r"Votre panier")),
+                      content: SingleChildScrollView(
+                        child: SizedBox(
+                          width: 600,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Services",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 60,
+                                child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: cartService.length,
+                                    //shrinkWrap: true,
+                                    itemBuilder: (BuildContext context, int index) {
+                                      return  Padding(
+                                        padding:const EdgeInsets.all(8.0),
+                                        child: Container(
+                                          width: 180,
+                                          alignment: Alignment.center,
+                                          padding: const EdgeInsets.all(10.0),
+                                          decoration: BoxDecoration(
+                                            color:    AppColor.backgroundColor,
+                                            borderRadius: BorderRadius.circular(15.0),
+                                          ),
+                                          child: Text(
+                                              '${cartService[index].name}',
+                                              overflow:TextOverflow.ellipsis ,
+                                              style:  TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color:  AppColor.primaryDarkColor)),
+                                        ),
+                                      );
+                                    }),
+                              ),
+                              const SizedBox(height: 12,),
+                              Container(
+                                height: 40,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: AppColor.primaryBlueColor,
+                                        width: 1
+                                    )
+                                ),
+                                child:  Text("Nom: $name", overflow:TextOverflow.ellipsis , style: TextStyle(fontSize: 16,color: AppColor.primaryDarkColor,fontWeight: FontWeight.bold),
 
-                  }
+                              ),
+
+                              ),
+                              const SizedBox(height: 12,),
+                              Container(
+                                height: 40,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: AppColor.primaryBlueColor,
+                                        width: 1
+                                    )
+                                ),
+                                child:  Text("Téléphone: $completeNumber",overflow:TextOverflow.ellipsis , style: TextStyle(fontSize: 16,color: AppColor.primaryDarkColor,fontWeight: FontWeight.bold)
+
+                                ),
+
+                              ),
+                              const SizedBox(height: 12,),
+                              Container(
+                                height: 40,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: AppColor.primaryBlueColor,
+                                        width: 1
+                                    )
+                                ),
+                                child:  Text("Téléphone: $completeNumber1",overflow:TextOverflow.ellipsis , style: TextStyle(fontSize: 16,color: AppColor.primaryDarkColor,fontWeight: FontWeight.bold)
+
+                                ),
+
+                              ),
+                              const SizedBox(height: 12,),
+                              Container(
+                                height: 40,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: AppColor.primaryBlueColor,
+                                        width: 1
+                                    )
+                                ),
+                                child:  Text("Willaya: $state",overflow:TextOverflow.ellipsis , style: TextStyle(fontSize: 16,color: AppColor.primaryDarkColor,fontWeight: FontWeight.bold)
+
+                                ),
+
+                              ),
+                              const SizedBox(height: 12,),
+                              Container(
+                                height: 40,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: AppColor.primaryBlueColor,
+                                        width: 1
+                                    )
+                                ),
+                                child:  Text("Adresse: $adress",overflow:TextOverflow.ellipsis , style: TextStyle(fontSize: 16,color: AppColor.primaryDarkColor,fontWeight: FontWeight.bold)
+
+                                ),
+
+                              ),
+                              const SizedBox(height: 12,),
+                              Container(
+                                height: 40,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: AppColor.primaryBlueColor,
+                                        width: 1
+                                    )
+                                ),
+                                child:  Text("La date: ${getDate()}",overflow:TextOverflow.ellipsis , style: TextStyle(fontSize: 16,color: AppColor.primaryDarkColor,fontWeight: FontWeight.bold)
+
+                                ),
+
+                              ),
+                              const SizedBox(height: 12,),
+                              Container(
+                                height: 40,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        color: AppColor.primaryBlueColor,
+                                        width: 1
+                                    )
+                                ),
+                                child:  Text("Heure de début: ${getTime(selectedTime)}",overflow:TextOverflow.ellipsis , style: TextStyle(fontSize: 16,color: AppColor.primaryDarkColor,fontWeight: FontWeight.bold)
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                      actions: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SliderButton(
+                              action: () {
+                                  List<Map<String, dynamic>> services = [];
+                                  bool isDone = false;
+                                  if (_formkey.currentState!.validate() && showDate && showTime) {
+                                    for (var element in cartService) {
+                                      for (var ele in services) {
+                                        if(ele['service'] == element.name ){
+                                          isDone = true;
+                                        }
+                                      }
+                                      if(!isDone){
+                                        services.add(
+                                            {
+                                              "service":element.name,
+                                              "hours":element.numberHours.toInt(),
+                                            }
+                                        );
+                                      }
+                                    }
+                                    Map<String, dynamic> data = {
+                                      "client":name,
+                                      "date":getDate()!,
+                                      "start":getTime(selectedTime),
+                                      "service":services,
+                                      "address":adress,
+                                      "phone1":completeNumber,
+                                      "phone2":completeNumber1,
+                                      "state":state
+                                    };
+                                    Order.postOrder(data,context);
+                                    dbHelper!.deleteCart();
+                                    cart.initCounter();
+                                  } else {
+                                    ToastService.showErrorToast("Vérifier les champs");
+                                  }
+                                  setState(() {
+                                    isSelected = true;
+                                  });
+                              },
+                              height: 50,
+                              buttonSize: 40,
+                              width: 200,
+                              shimmer:false,
+                              label:  Text(
+                                r"Confirmer",
+                                style: TextStyle(
+                                    color: AppColor.backgroundColor, fontWeight: FontWeight.bold, fontSize: 17),
+                              ),
+                              icon:  Center(
+                                  child: SvgPicture.asset('assets/checkout-svgrepo-com.svg',
+                                    width: 22.0,
+                                    height: 22.0,
+                                  ),
+                              ),
+                              buttonColor: AppColor.backgroundColor,
+                              backgroundColor: AppColor.primaryBlueColor,
+                              highlightedColor: AppColor.primaryDarkColor,
+                              baseColor: AppColor.backgroundColor,
+                            ),
+                            TextButton(
+                              child: const Text("Annuler"),
+                              onPressed:  () {},
+                            )
+                          ],
+                        ),
+                      ],
+                    );
+                  },
+                  );
+                } else {
+                    ToastService.showErrorToast("Vérifier les champs");
+                   setState(() {
+                     isSelected = true;
+                    });
+                 }
                 },
                 child: Container(
                   alignment: Alignment.center,

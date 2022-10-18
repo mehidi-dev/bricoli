@@ -50,6 +50,7 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   cached_network_image: ^3.2.2
   url_launcher: ^6.1.5
+  slider_button: ^2.0.0
 
 
 

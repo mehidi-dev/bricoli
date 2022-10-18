@@ -80,7 +80,7 @@ class _ServiceCategoryListState extends State<ServiceCategoryList> {
           status: service.status,
           category: service.category,
           price: service.price,
-          numberHours: 0,
+          numberHours: 1,
           img: service.img,
         ),
       ).then((value) {
