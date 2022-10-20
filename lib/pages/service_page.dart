@@ -714,7 +714,7 @@ class _CartScreenState extends State<CartScreen> {
                                     Order.postOrder(data,context);
                                     dbHelper!.deleteCart();
                                     cart.initCounter();
-                                    Navigator.of(context).pop(true);
+
                                   } else {
                                     ToastService.showErrorToast("Vérifier les champs");
                                   }

@@ -159,6 +159,8 @@ class Order {
     var response = await network.postWithHeader(ApiUtils.postOrder, data);
     if(response.statusCode == 200){
       ToastService.showSuccessToast("Est fait");
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pop(true);
       return true;
     }else{
       print(response.body);
