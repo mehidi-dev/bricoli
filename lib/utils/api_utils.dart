@@ -8,5 +8,6 @@ class ApiUtils {
   static const createOrder = "${baseUrl}order";
   static const getAllPrices = "${baseUrl}price";
   static const serviceByCategory = "services/byCategory/";
+  static const postOrder = "orders";
   static const states = "states";
 }

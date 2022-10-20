@@ -156,10 +156,8 @@ class Order {
     Network network = Network();
     print(data);
     print("********** data *********");
-    var response = await network.postWithHeader(ApiUtils.serviceByCategory, data);
-    print(" ************ traking *************s");
+    var response = await network.postWithHeader(ApiUtils.postOrder, data);
     if(response.statusCode == 200){
-      final result = json.decode(response.body);
       ToastService.showSuccessToast("Est fait");
       // ignore: use_build_context_synchronously
       Navigator.pop(context);

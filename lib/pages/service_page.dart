@@ -140,28 +140,6 @@ class _CartScreenState extends State<CartScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Mes services'),
-        actions: [
-          Badge(
-            badgeContent: Consumer<CartProvider>(
-              builder: (context, value, child) {
-                count = value.getCounter();
-                return Text(
-                  value.getCounter().toString(),
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                );
-              },
-            ),
-            position:  const BadgePosition(start: 22, bottom: 20),
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart),
-            ),
-          ),
-          const SizedBox(
-            width: 20.0,
-          ),
-        ],
         backgroundColor: AppColor.primaryBlueColor,
       ),
       body: SingleChildScrollView(
@@ -736,6 +714,7 @@ class _CartScreenState extends State<CartScreen> {
                                     Order.postOrder(data,context);
                                     dbHelper!.deleteCart();
                                     cart.initCounter();
+                                    Navigator.of(context).pop(true);
                                   } else {
                                     ToastService.showErrorToast("Vérifier les champs");
                                   }
@@ -765,14 +744,22 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                             TextButton(
                               child: const Text("Annuler"),
-                              onPressed:  () {},
+                              onPressed:  () {
+                                Navigator.of(context).pop(false);
+                              },
                             )
                           ],
                         ),
                       ],
                     );
                   },
-                  );
+                  ).then((value) {
+                    if (value) {
+                      Navigator.of(context).pop();
+                    } else {
+                     return null;
+                    }
+                  });
                 } else {
                     ToastService.showErrorToast("Vérifier les champs");
                    setState(() {

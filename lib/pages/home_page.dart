@@ -186,8 +186,8 @@ class _HomePageState extends State<HomePage> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: _current == index
-                                ?  Colors.red
-                                : Colors.blue,
+                                ?  AppColor.primaryBlueColor
+                                : AppColor.primaryDarkColor,
                           ),
                         );
                       }).toList(),

@@ -106,11 +106,8 @@ class _ServiceCategoryListState extends State<ServiceCategoryList> {
                 );
               },
             ),
-            position:  const BadgePosition(start: 22, bottom: 20),
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart),
-            ),
+            position: const BadgePosition(start: 22, bottom: 20),
+            child: Icon(count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart,color: Colors.black54,),
           ),
           const SizedBox(
             width: 20.0,
