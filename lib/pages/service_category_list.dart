@@ -95,19 +95,26 @@ class _ServiceCategoryListState extends State<ServiceCategoryList> {
       appBar:   AppBar(
         centerTitle: true,
         actions: [
-          Badge(
-            badgeContent: Consumer<CartProvider>(
-              builder: (context, value, child) {
-                count = value.getCounter();
-                return Text(
-                  value.getCounter().toString(),
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                );
-              },
+          InkWell(
+            onTap: (){
+              if(count !=  0) {
+                Navigator.push(context,MaterialPageRoute(builder: (context) =>  const CartScreen()),);
+              }
+            },
+            child: Badge(
+              badgeContent: Consumer<CartProvider>(
+                builder: (context, value, child) {
+                  count = value.getCounter();
+                  return Text(
+                    value.getCounter().toString(),
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  );
+                },
+              ),
+              position: const BadgePosition(start: 22, bottom: 20),
+              child: Icon(count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart,color: Colors.white,),
             ),
-            position: const BadgePosition(start: 22, bottom: 20),
-            child: Icon(count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart,color: Colors.black54,),
           ),
           const SizedBox(
             width: 20.0,

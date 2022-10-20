@@ -754,7 +754,7 @@ class _CartScreenState extends State<CartScreen> {
                     );
                   },
                   ).then((value) {
-                    if (value) {
+                    if (value == true) {
                       Navigator.of(context).pop();
                     } else {
                      return null;
