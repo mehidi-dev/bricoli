@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         routes: {
           HomePage.route: (_) => const HomePage(),
           DetailScreen.route: (context) => const DetailScreen(service: null),
-          CartScreen.route: (context) => const CartScreen(),
+          CartScreen.route: (context) => const CartScreen(isHome: false),
           ServiceList.route: (context) => const ServiceList(category: null),
           CategoryList.route: (context) => const CategoryList(),
           FeqPage.route: (context) => const FeqPage(),

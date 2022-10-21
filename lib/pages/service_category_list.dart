@@ -64,8 +64,6 @@ class _ServiceCategoryListState extends State<ServiceCategoryList> {
     super.initState();
     getData();
   }
-
-  //List<bool> clicked = List.generate(10, (index) => false, growable: true);
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context);
@@ -96,24 +94,27 @@ class _ServiceCategoryListState extends State<ServiceCategoryList> {
         centerTitle: true,
         actions: [
           InkWell(
-            onTap: (){
-              if(count !=  0) {
-                Navigator.push(context,MaterialPageRoute(builder: (context) =>  const CartScreen()),);
+            onTap: () {
+              if(count != 0 ){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CartScreen(isHome: false,)));
               }
             },
-            child: Badge(
-              badgeContent: Consumer<CartProvider>(
-                builder: (context, value, child) {
-                  count = value.getCounter();
-                  return Text(
+            child: Consumer<CartProvider>(
+              builder: (context, value, child) {
+                count = value.getCounter();
+                return Badge(
+                  badgeContent : Text(
                     value.getCounter().toString(),
                     style: const TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
-                  );
-                },
-              ),
-              position: const BadgePosition(start: 22, bottom: 20),
-              child: Icon(count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart,color: Colors.white,),
+                  ),
+                  position: const BadgePosition(start: 22, bottom: 20),
+                  child: Icon(count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart,color: Colors.white,),
+                );
+              },
             ),
           ),
           const SizedBox(

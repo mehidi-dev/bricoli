@@ -108,19 +108,19 @@ class _HomePageState extends State<HomePage> {
           ),
            BottomNavigationBarItem(
             label: 'PANIER',
-           icon: Badge(
-             badgeContent: Consumer<CartProvider>(
-               builder: (context, value, child) {
-                 count = value.getCounter();
-                 return Text(
+           icon: Consumer<CartProvider>(
+             builder: (context, value, child) {
+               count = value.getCounter();
+               return Badge(
+                 badgeContent : Text(
                    value.getCounter().toString(),
                    style: const TextStyle(
                        color: Colors.white, fontWeight: FontWeight.bold),
-                 );
-               },
-             ),
-             position: const BadgePosition(start: 22, bottom: 20),
-             child: Icon(count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart,color: Colors.black54,),
+                 ),
+                 position: const BadgePosition(start: 22, bottom: 20),
+                 child: Icon(count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart,color: Colors.black54,),
+               );
+             },
            )
           ),
            const BottomNavigationBarItem(
@@ -320,7 +320,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-      ) : _currentIndex == 1 ? const CartScreen() : const FeqPage(),
+      ) : _currentIndex == 1 ? const CartScreen(isHome: true) : const FeqPage(),
     );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:badges/badges.dart';
 import 'package:bricoli_app/utils/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,8 +16,9 @@ import '../widgets/customboxinformation_widget.dart';
 
 
 class CartScreen extends StatefulWidget {
+  final bool isHome ;
   const CartScreen({
-    Key? key,
+    Key? key, required this.isHome,
   }) : super(key: key);
   static String route = "cart";
   @override
@@ -49,7 +49,7 @@ class _CartScreenState extends State<CartScreen> {
   String adress  ="";
   List<Cart> cartService = [];
   List<Cart> cartData = [];
-
+ bool isHome = false;
   // Select for Date
   Future<DateTime> _selectDate(BuildContext context) async {
     final selected = await showDatePicker(
@@ -129,6 +129,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     getState();
+    isHome =  widget.isHome;
     super.initState();
     getCartProvider();
   }
@@ -139,6 +140,7 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        automaticallyImplyLeading: false,
         title: const Text('Mes services'),
         backgroundColor: AppColor.primaryBlueColor,
       ),
@@ -714,13 +716,17 @@ class _CartScreenState extends State<CartScreen> {
                                     Order.postOrder(data,context);
                                     dbHelper!.deleteCart();
                                     cart.initCounter();
-
+                                    Navigator.of(context).pop(true);
+                                    setState(() {
+                                      isSelected = true;
+                                    });
                                   } else {
                                     ToastService.showErrorToast("Vérifier les champs");
+                                    setState(() {
+                                      isSelected = true;
+                                    });
                                   }
-                                  setState(() {
-                                    isSelected = true;
-                                  });
+
                               },
                               height: 50,
                               buttonSize: 40,
@@ -754,10 +760,11 @@ class _CartScreenState extends State<CartScreen> {
                     );
                   },
                   ).then((value) {
-                    if (value == true) {
+                    if (isHome == false) {
                       Navigator.of(context).pop();
+                      print("dddddddd");
                     } else {
-                     return null;
+                      getCartProvider();
                     }
                   });
                 } else {

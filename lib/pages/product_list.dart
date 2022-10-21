@@ -98,7 +98,7 @@ class _ServiceListState extends State<ServiceList> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const CartScreen()));
+                          builder: (context) => const CartScreen(isHome: false)));
                 }
               },
               icon: Icon(_count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart),
