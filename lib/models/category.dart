@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bricoli_app/models/service.dart';
+import 'Package:Bricoli_Dari/models/service.dart';
 
 import '../utils/api_http.dart';
 import '../utils/api_utils.dart';

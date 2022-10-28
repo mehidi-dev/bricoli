@@ -1,4 +1,4 @@
-import 'package:bricoli_app/utils/color.dart';
+import 'Package:Bricoli_Dari/utils/color.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 

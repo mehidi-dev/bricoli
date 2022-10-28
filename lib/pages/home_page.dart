@@ -1,7 +1,7 @@
 import 'package:badges/badges.dart';
-import 'package:bricoli_app/pages/product_list.dart';
-import 'package:bricoli_app/pages/service_category_list.dart';
-import 'package:bricoli_app/pages/service_page.dart';
+import 'Package:Bricoli_Dari/pages/product_list.dart';
+import 'Package:Bricoli_Dari/pages/service_category_list.dart';
+import 'Package:Bricoli_Dari/pages/service_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +13,6 @@ import '../models/orderProvider.dart';
 import '../models/service.dart';
 import '../utils/color.dart';
 import '../utils/toast.dart';
-import '../widgets/search_form.dart';
 import '../widgets/service_item.dart';
 import '../widgets/specialist_item.dart';
 import 'feq.dart';
@@ -125,10 +124,10 @@ class _HomePageState extends State<HomePage> {
           ),
            const BottomNavigationBarItem(
             icon: Icon(
-              Icons.help_outlined,
+              Icons.contacts,
               color: Colors.black54,
             ),
-            label: 'AIDE',
+            label: 'CONTACT',
           ),
         ],
       ),

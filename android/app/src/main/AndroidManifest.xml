@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bricoli_app">
-   <application
-        android:label="bricoli_app"
+    package="com.bricolidari.bricoli_app">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:label="Bricoli Dari"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

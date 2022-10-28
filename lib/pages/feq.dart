@@ -96,6 +96,101 @@ class _FeqPageState extends State<FeqPage> {
             ),
           ),
                     const SizedBox(
+                      height: 16,
+                    ),
+
+ /***************************/
+
+                    SizedBox(
+                      height: 65,
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            elevation: 5,
+                            backgroundColor: AppColor.primaryBlueColor,
+                            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10)),
+                        onPressed: () {
+                           launch("https://web.facebook.com/profile.php?id=100078770065946", forceSafariVC: false);
+                        },
+                        icon:  SvgPicture.asset(
+                            "assets/icons/facebook.svg",
+                          width: 35,
+                          height: 35,
+                        ),
+                        label: const Center(
+                          child: Text(
+                            "Facebook",
+                            style: TextStyle(color: Colors.white,fontSize: 18),
+                          ),
+                        ),
+
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+
+                    SizedBox(
+                      height: 65,
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            elevation: 5,
+                            backgroundColor: AppColor.primaryBlueColor,
+                            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10)),
+                        onPressed: () {
+                         // launch("https://web.facebook.com/profile.php?id=100078770065946", forceSafariVC: false);
+                        },
+                        icon: SvgPicture.asset(
+                            "assets/icons/tiktok.svg",
+                          width: 35,
+                          height: 35,
+                        ),
+                        label: const Center(
+                          child: Text(
+                            "Tik Tok",
+                            style: TextStyle(color: Colors.white,fontSize: 18),
+                          ),
+                        ),
+
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+
+                    SizedBox(
+                      height: 65,
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            elevation: 5,
+                            backgroundColor: AppColor.primaryBlueColor,
+                            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10)),
+                        onPressed: () {
+                          launch("https://www.instagram.com/bricoli_dari/", forceSafariVC: false);
+                        },
+                        icon: SvgPicture.asset(
+                            "assets/icons/instagram.svg",
+                          width: 35,
+                          height: 35,
+                        ),
+                        label: const Center(
+                          child: Text(
+                            "Instagram",
+                            style: TextStyle(color: Colors.white,fontSize: 18),
+                          ),
+                        ),
+
+                      ),
+                    ),
+                    const SizedBox(
                       height: 32,
                     ),
             ],

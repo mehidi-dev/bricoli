@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/color.dart';
 import 'home_page.dart';
@@ -43,30 +46,41 @@ class _StartedPageState extends State<StartedPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Tous les services dans une seule application",
+                      "Après le bricolage on aura besoin de nettoyage, "
+                          "L'application NEQILI DARI",
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
-                        fontSize: 24,
+                        fontSize: 22,
                       ),
                     ),
                     const SizedBox(
                       height: 8,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(
-                        right: 20,
-                      ),
-                      child: Text(
-                        "Trouvez votre artisan et prenez rendez-vous en un clic",
-                        style: TextStyle(
-                          color: Colors.black38,
-                          fontSize: 18,
+                    Container(
+                      alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
                         ),
-                      ),
+                        child: InkWell(
+                          onTap: () async{
+                        if (Platform.isIOS ) {
+                          await launch("https://apps.apple.com/dz/app/neqili-dari/id1576690644?|=fr");
+                        } else {
+                          await launch("https://play.google.com/store/apps/details?id=com.immo_multiservising.na9ili_dari");
+                        }
+
+                          },
+                          child: Image.asset('assets/start1.png',
+                            width: 70,
+                            height: 70,),
+                        )
                     ),
                     const SizedBox(
-                      height: 32,
+                      height: 8,
+                    ),
+                    const SizedBox(
+                      height: 16,
                     ),
                     InkWell(
                       onTap: (){

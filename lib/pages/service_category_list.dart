@@ -1,20 +1,15 @@
 import 'package:badges/badges.dart';
-import 'package:bricoli_app/models/category.dart';
-import 'package:bricoli_app/utils/toast.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'Package:Bricoli_Dari/models/category.dart';
+import 'Package:Bricoli_Dari/utils/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-
 import '../models/DBHelper.dart';
 import '../models/orderProvider.dart';
 import '../models/service.dart';
 import '../models/cart_model.dart';
 import '../utils/color.dart';
-import '../widgets/search_form.dart';
-import '../widgets/specialist_item.dart';
 import 'service_page.dart';
 
 

@@ -1,7 +1,7 @@
 import 'package:badges/badges.dart';
-import 'package:bricoli_app/models/category.dart';
-import 'package:bricoli_app/pages/product_list.dart';
-import 'package:bricoli_app/utils/toast.dart';
+import 'Package:Bricoli_Dari/models/category.dart';
+import 'Package:Bricoli_Dari/pages/product_list.dart';
+import 'Package:Bricoli_Dari/utils/toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';

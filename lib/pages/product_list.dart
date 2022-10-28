@@ -1,6 +1,6 @@
 import 'package:badges/badges.dart';
-import 'package:bricoli_app/models/category.dart';
-import 'package:bricoli_app/utils/toast.dart';
+import 'Package:Bricoli_Dari/models/category.dart';
+import 'Package:Bricoli_Dari/utils/toast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -80,28 +80,28 @@ class _ServiceListState extends State<ServiceList> {
         title:  Text(widget.category.isNull ? 'List des Services' : widget.category!.name ),
         backgroundColor: AppColor.primaryBlueColor,
         actions: [
-          Badge(
-            badgeContent: Consumer<CartProvider>(
+          InkWell(
+            onTap: () {
+              if(_count != 0 ){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CartScreen(isHome: false,)));
+              }
+            },
+            child: Consumer<CartProvider>(
               builder: (context, value, child) {
                 _count = value.getCounter();
-                return Text(
-                  value.getCounter().toString(),
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                return Badge(
+                  badgeContent : Text(
+                    value.getCounter().toString(),
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  position: const BadgePosition(start: 22, bottom: 20),
+                  child: Icon(_count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart,color: Colors.white,),
                 );
               },
-            ),
-            position:  const BadgePosition(start: 22, bottom: 20),
-            child: IconButton(
-              onPressed: () {
-                if(_count != 0 ){
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CartScreen(isHome: false)));
-                }
-              },
-              icon: Icon(_count == 0 ? Icons.shopping_cart_outlined : Icons.shopping_cart),
             ),
           ),
           const SizedBox(
