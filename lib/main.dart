@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
                   backgroundColor: Colors.white,
                   image: Image.asset('assets/start.png'),
                   photoSize: 90,
-                  useLoader: false,
+                  useLoader: true,
 
                 ),
               ),

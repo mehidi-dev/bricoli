@@ -143,7 +143,7 @@ class _FeqPageState extends State<FeqPage> {
                             backgroundColor: AppColor.primaryBlueColor,
                             padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10)),
                         onPressed: () {
-                         // launch("https://web.facebook.com/profile.php?id=100078770065946", forceSafariVC: false);
+                          launch("https://www.tiktok.com/fr/", forceSafariVC: false);
                         },
                         icon: SvgPicture.asset(
                             "assets/icons/tiktok.svg",
