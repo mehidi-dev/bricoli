@@ -5,15 +5,16 @@ import 'Package:Bricoli_Dari/pages/home_page.dart';
 import 'Package:Bricoli_Dari/pages/product_list.dart';
 import 'Package:Bricoli_Dari/pages/service_category_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'Package:Bricoli_Dari/pages/started.dart';
 import 'package:provider/provider.dart';
-import 'package:splashscreen/splashscreen.dart';
 
 import 'models/orderProvider.dart';
 import 'pages/service_page.dart';
 
 void main() {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
 }
 
@@ -39,20 +40,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-          home: SafeArea(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SplashScreen(
-                  seconds: 3,
-                  navigateAfterSeconds: const StartedPage(),
-                  backgroundColor: Colors.white,
-                  image: Image.asset('assets/start.png'),
-                  photoSize: 90,
-                  useLoader: true,
-
-                ),
-              ),
+          home: const Scaffold(
+            body: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: StartedPage(),
             ),
           )
       ),

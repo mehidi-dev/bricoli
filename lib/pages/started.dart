@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/color.dart';
@@ -15,7 +16,17 @@ class StartedPage extends StatefulWidget {
 
 class _StartedPageState extends State<StartedPage> {
     bool isSelected = true;
+    @override
+    void initState() {
+      super.initState();
+      initialization();
+    }
 
+    void initialization() async {
+      await Future.delayed(const Duration(seconds: 3));
+      print('go!');
+      FlutterNativeSplash.remove();
+    }
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
