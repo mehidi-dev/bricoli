@@ -87,6 +87,7 @@ class _ServiceCategoryListState extends State<ServiceCategoryList> {
     return Scaffold(
       appBar:   AppBar(
         centerTitle: true,
+        title:  const Text('Catégories'),
         actions: [
           InkWell(
             onTap: () {
@@ -262,7 +263,7 @@ class _ServiceCategoryListState extends State<ServiceCategoryList> {
                             Padding(
                               padding: const EdgeInsets.only(top: 12.0),
                               child: SizedBox(
-                                height: 150.0,
+                                height: 220.0,
                                 child: AnimationLimiter(
                                     child: ListView.builder(
                                         itemCount: displayCategories[index]?.services.length,
@@ -305,7 +306,7 @@ Widget listItem(Service service) {
       children: [
         Container(
           width:136,
-          height: 100.0,
+          height: 220.0,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(service.img,),fit: BoxFit.fill,),
@@ -317,7 +318,7 @@ Widget listItem(Service service) {
           bottom: 0,
           child: Container(
             width:136,
-            height: 70.0,
+            height: 100.0,
             decoration:  BoxDecoration(
               color: AppColor.primaryBlueColor,
               borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(10.0),bottomRight: Radius.circular(10.0)),
@@ -329,7 +330,7 @@ Widget listItem(Service service) {
                 children: [
                   Text(
                     service.name,
-                   maxLines: 2,
+                   maxLines: 5,
                     style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.backgroundColor),
                   ),
                   Text(

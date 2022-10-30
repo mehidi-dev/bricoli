@@ -200,7 +200,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children:  [
                     const Text(
-                      "Categories",
+                      "Catégories",
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,

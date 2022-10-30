@@ -77,7 +77,7 @@ class _ServiceListState extends State<ServiceList> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title:  Text(widget.category.isNull ? 'List des Services' : widget.category!.name ),
+        title:  Text(widget.category.isNull ? 'Services' : widget.category!.name ),
         backgroundColor: AppColor.primaryBlueColor,
         actions: [
           InkWell(
@@ -114,7 +114,10 @@ class _ServiceListState extends State<ServiceList> {
         child: AnimationLimiter(
             child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
+                  crossAxisCount: 2,
+                  childAspectRatio: 5,
+                  mainAxisExtent: 220,
+                ),
                 itemCount: services.length,
                 itemBuilder: (BuildContext context, int index) {
                   return AnimationConfiguration.staggeredGrid(
@@ -125,7 +128,7 @@ class _ServiceListState extends State<ServiceList> {
                           child: FadeInAnimation(
                               delay: const Duration(milliseconds: 100),
                               child: InkWell(
-                                onTap: (){
+                                 onTap: (){
                                   saveData(index);
                                 },
                                   child: listItem(services[index]!))))
@@ -143,7 +146,7 @@ Widget listItem(Service service) {
       children: [
         Container(
           width:136,
-          height: 100.0,
+          height: 220.0,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(service.img,),fit: BoxFit.fill,),
@@ -155,7 +158,7 @@ Widget listItem(Service service) {
           bottom: 0,
           child: Container(
             width:136,
-            height: 70.0,
+            height: 100.0,
             decoration:  BoxDecoration(
               color: AppColor.primaryBlueColor,
               borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(10.0),bottomRight: Radius.circular(10.0)),
@@ -167,7 +170,7 @@ Widget listItem(Service service) {
                 children: [
                   Text(
                     service.name,
-                   maxLines: 2,
+                   maxLines: 5,
                     style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColor.backgroundColor),
                   ),
                   Text(

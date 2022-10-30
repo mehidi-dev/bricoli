@@ -52,6 +52,7 @@ dependencies:
   url_launcher: ^6.1.5
   slider_button: ^2.0.0
   flutter_native_splash: ^2.2.12
+  geolocator: ^8.0.0
 
 
 

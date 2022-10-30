@@ -13,7 +13,8 @@ import '../models/orderProvider.dart';
 import '../models/state.dart';
 import '../utils/color.dart';
 import '../widgets/customboxinformation_widget.dart';
-
+import 'package:geolocator/geolocator.dart';
+import 'dart:async';
 
 class CartScreen extends StatefulWidget {
   final bool isHome ;
@@ -50,6 +51,7 @@ class _CartScreenState extends State<CartScreen> {
   List<Cart> cartService = [];
   List<Cart> cartData = [];
  bool isHome = false;
+  final TextEditingController _controller =  TextEditingController(text: '');
   // Select for Date
   Future<DateTime> _selectDate(BuildContext context) async {
     final selected = await showDatePicker(
@@ -126,12 +128,63 @@ class _CartScreenState extends State<CartScreen> {
        totalPrice;
      });
   }
+  bool servicestatus = false;
+  bool haspermission = false;
+  late LocationPermission permission;
+  late Position position;
+  String long = "", lat = "";
+  checkGps() async {
+    servicestatus = await Geolocator.isLocationServiceEnabled();
+    if(servicestatus){
+      permission = await Geolocator.checkPermission();
+
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          print('Location permissions are denied');
+        }else if(permission == LocationPermission.deniedForever){
+          print("'Location permissions are permanently denied");
+        }else{
+          haspermission = true;
+        }
+      }else{
+        haspermission = true;
+      }
+
+      if(haspermission){
+        setState(() {
+          //refresh the UI
+        });
+
+        getLocation();
+      }
+    }else{
+      print("GPS Service is not enabled, turn on GPS location");
+    }
+
+    setState(() {
+      //refresh the UI
+    });
+  }
+
+  getLocation() async {
+    position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print(position.longitude); //Output: 80.24599079
+    print(position.latitude); //Output: 29.6593457
+    long = position.longitude.toString();
+    lat = position.latitude.toString();
+    setState(() {
+      //refresh UI
+    });
+    _controller.text = "$long,$lat";
+  }
   @override
   void initState() {
     getState();
     isHome =  widget.isHome;
     super.initState();
     getCartProvider();
+    checkGps();
   }
 
   @override
@@ -140,7 +193,7 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: !isHome,
         title: const Text('Mes services'),
         backgroundColor: AppColor.primaryBlueColor,
       ),
@@ -269,6 +322,64 @@ class _CartScreenState extends State<CartScreen> {
                                     image: AssetImage('assets/to_pay.png'), fit: BoxFit.fill),
                                   ),
                                   child: Text("Total prix: ${totalPrice.toInt()} DA",style: const TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 22))),
+                            ),
+
+                            const Text(
+                              "Position:",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: TextFormField(
+                                      controller: _controller,
+                                      enabled: false,
+                                      validator: (String? value) {
+                                        if (value !=null && value.isEmpty ) {
+                                          return "Choisir votre position";
+                                        }
+                                        return null;
+                                      },
+                                      decoration: const InputDecoration(
+                                        filled: true,
+                                        fillColor:Colors.white,
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(12)),
+
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                                        ),
+                                      ),
+
+                                    ),
+                                  ),
+                                    Padding(
+                                     padding: const EdgeInsets.only(left: 8.0),
+                                     child: InkWell(
+                                       onTap:()async{
+                                         if(haspermission){
+                                           getLocation();
+                                         } else {
+                                           await checkGps();
+                                         }
+                                       },
+                                         child: const Icon(Icons.gps_fixed,size: 24)),
+                                   )
+                                ],
+                              ),
                             ),
                             const Text(
                               "Nom:",
@@ -687,7 +798,7 @@ class _CartScreenState extends State<CartScreen> {
                               action: () {
                                   List<Map<String, dynamic>> services = [];
                                   bool isDone = false;
-                                  if (_formkey.currentState!.validate() && showDate && showTime) {
+                                  if (_formkey.currentState!.validate() && showDate && showTime && lat.isNotEmpty) {
                                     for (var element in cartService) {
                                       for (var ele in services) {
                                         if(ele['service'] == element.name ){
@@ -711,6 +822,10 @@ class _CartScreenState extends State<CartScreen> {
                                       "address":adress,
                                       "phone1":completeNumber,
                                       "phone2":completeNumber1,
+                                      "position ": {
+                                        "lat":lat,
+                                        "long":long,
+                                      },
                                       "state":state
                                     };
                                     Order.postOrder(data,context);

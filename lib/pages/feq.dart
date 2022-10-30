@@ -3,7 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/color.dart';
-import 'home_page.dart';
+
+
 
 class FeqPage extends StatefulWidget {
   const FeqPage({Key? key}) : super(key: key);
@@ -13,6 +14,13 @@ class FeqPage extends StatefulWidget {
 }
 
 class _FeqPageState extends State<FeqPage> {
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -98,97 +106,40 @@ class _FeqPageState extends State<FeqPage> {
                     const SizedBox(
                       height: 16,
                     ),
-
- /***************************/
-
-                    SizedBox(
-                      height: 65,
-                      child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            elevation: 5,
-                            backgroundColor: AppColor.primaryBlueColor,
-                            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10)),
-                        onPressed: () {
-                           launch("https://web.facebook.com/profile.php?id=100078770065946", forceSafariVC: false);
-                        },
-                        icon:  SvgPicture.asset(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InkWell(
+                          child: SvgPicture.asset(
                             "assets/icons/facebook.svg",
-                          width: 35,
-                          height: 35,
-                        ),
-                        label: const Center(
-                          child: Text(
-                            "Facebook",
-                            style: TextStyle(color: Colors.white,fontSize: 18),
+                            width: 40,
+                            height: 40,
                           ),
+                          onTap: (){
+                            launch("https://web.facebook.com/profile.php?id=100078770065946", forceSafariVC: false);
+                          },
                         ),
-
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-
-                    SizedBox(
-                      height: 65,
-                      child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            elevation: 5,
-                            backgroundColor: AppColor.primaryBlueColor,
-                            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10)),
-                        onPressed: () {
-                          launch("https://www.tiktok.com/fr/", forceSafariVC: false);
-                        },
-                        icon: SvgPicture.asset(
+                        InkWell(
+                          child: SvgPicture.asset(
                             "assets/icons/tiktok.svg",
-                          width: 35,
-                          height: 35,
-                        ),
-                        label: const Center(
-                          child: Text(
-                            "Tik Tok",
-                            style: TextStyle(color: Colors.white,fontSize: 18),
+                            width: 35,
+                            height: 35,
                           ),
+                          onTap: (){
+                            launch("https://www.tiktok.com/fr/", forceSafariVC: false);
+                          },
                         ),
-
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-
-                    SizedBox(
-                      height: 65,
-                      child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            elevation: 5,
-                            backgroundColor: AppColor.primaryBlueColor,
-                            padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 10)),
-                        onPressed: () {
-                          launch("https://www.instagram.com/bricoli_dari/", forceSafariVC: false);
-                        },
-                        icon: SvgPicture.asset(
+                        InkWell(
+                          child: SvgPicture.asset(
                             "assets/icons/instagram.svg",
-                          width: 35,
-                          height: 35,
-                        ),
-                        label: const Center(
-                          child: Text(
-                            "Instagram",
-                            style: TextStyle(color: Colors.white,fontSize: 18),
+                            width: 40,
+                            height: 40,
                           ),
+                          onTap: (){
+                            launch("https://www.instagram.com/bricoli_dari/", forceSafariVC: false);
+                          },
                         ),
-
-                      ),
+                      ],
                     ),
                     const SizedBox(
                       height: 32,
