@@ -822,7 +822,7 @@ class _CartScreenState extends State<CartScreen> {
                                       "address":adress,
                                       "phone1":completeNumber,
                                       "phone2":completeNumber1,
-                                      "total_price":totalPrice,
+                                      "price":totalPrice,
                                       "position": {
                                         "lat":lat,
                                         "long":long,
